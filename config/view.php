@@ -15,6 +15,8 @@ return [
 
     'paths' => [
         resource_path('views'),
+        app_path('Domain/Home/View'),
+        app_path('Domain/Auth/View'),
     ],
 
     /*

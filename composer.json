@@ -11,10 +11,12 @@
         "illuminate/queue": "^v9.0",
         "illuminate/support": "^v9.0",
         "infection/infection": "^0.26.15",
+        "laravel-frontend-presets/argon": "^2.0",
         "laravel/framework": "^9.19",
         "laravel/horizon": "5.x",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "laravel/ui": "^4.1",
         "php-open-source-saver/jwt-auth": "^2.0",
         "spatie/data-transfer-object": "^3.9",
         "spatie/laravel-route-attributes": "^1.14"

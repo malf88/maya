@@ -14,7 +14,14 @@ return [
      */
     'directories' => [
 
-        app_path('Domain/Auth/Controller'),
+        app_path('Domain/Home/Controller') => [
+            'prefix' => '/',
+            'middleware' => ['web']
+        ],
+        app_path('Domain/Auth/Controller') => [
+            'middleware' => ['web']
+        ],
+
 
         //        app_path('Domain/Auth/Controller') => [
         //           'prefix' => 'api',

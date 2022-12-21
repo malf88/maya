@@ -194,7 +194,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         \App\Application\Providers\EventServiceProvider::class,
         \App\Application\Providers\RouteServiceProvider::class,
-        \App\Domain\Auth\Provider\AuthServiceProvider::class,
     ],
 
     /*
