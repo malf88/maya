@@ -37,7 +37,7 @@
                                     <td>
                                         <div class="d-flex px-3 py-1">
                                             <div>
-                                                <img src="./img/team-1.jpg" class="avatar me-3" alt="image">
+                                                <img src="{{ asset('img/team-1.jpg') }}" class="avatar me-3" alt="image">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">Admin</h6>
@@ -61,7 +61,7 @@
                                     <td>
                                         <div class="d-flex px-3 py-1">
                                             <div>
-                                                <img src="./img/team-2.jpg" class="avatar me-3" alt="image">
+                                                <img src="{{ asset('img/team-2.jpg') }}" class="avatar me-3" alt="image">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">Creator</h6>
@@ -85,7 +85,7 @@
                                     <td>
                                         <div class="d-flex px-3 py-1">
                                             <div>
-                                                <img src="./img/team-3.jpg" class="avatar me-3" alt="image">
+                                                <img src="{{ asset('img/team-3.jpg') }}"class="avatar me-3" alt="image">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">Member</h6>

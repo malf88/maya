@@ -41,7 +41,7 @@ class LoginController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
-    #[Post('/logout')]
+    #[Post('/logout',name: 'logout')]
     #[Middleware('auth')]
     public function logout(Request $request)
     {
