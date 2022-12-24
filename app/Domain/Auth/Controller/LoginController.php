@@ -3,14 +3,23 @@
 namespace App\Domain\Auth\Controller;
 
 use App\Application\Http\Controllers\Controller;
+use App\Domain\Auth\DTO\UserDTO;
+use App\Domain\Auth\Interface\UserBusinessInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Post;
 #[Middleware('web')]
 class LoginController extends Controller
 {
+    public function __construct(
+        private readonly UserBusinessInterface $userBusiness
+    )
+    {
+    }
+
     /**
      * Display login page.
      *
@@ -26,12 +35,14 @@ class LoginController extends Controller
     #[Middleware('guest')]
     public function login(Request $request)
     {
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+        $user = new UserDTO($credentials);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if ($this->userBusiness->authUser($user)) {
             $request->session()->regenerate();
 
             return redirect()->intended('');
@@ -45,8 +56,7 @@ class LoginController extends Controller
     #[Middleware('auth')]
     public function logout(Request $request)
     {
-        Auth::logout();
-
+        $this->userBusiness->logoutUser();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

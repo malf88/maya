@@ -3,6 +3,8 @@
 namespace App\Domain\Auth\Controller;
 
 use App\Application\Http\Controllers\Controller;
+use App\Domain\Auth\DTO\UserDTO;
+use App\Domain\Auth\Interface\UserBusinessInterface;
 use App\Models\User;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
@@ -10,6 +12,10 @@ use Spatie\RouteAttributes\Attributes\Post;
 #[Middleware('web')]
 class RegisterController extends Controller
 {
+    public function __construct(private readonly UserBusinessInterface $userBusiness)
+    {
+    }
+
     #[Get('register', name: 'register')]
     #[Middleware('guest')]
     public function create()
@@ -26,8 +32,10 @@ class RegisterController extends Controller
             'password' => 'required|min:5|max:255',
             'terms' => 'required'
         ]);
-        $user = User::create($attributes);
-        auth()->login($user);
+
+        $user = new UserDTO($attributes);
+        $user = $this->userBusiness->create($user);
+        $this->userBusiness->authUser($user);
 
         return redirect('/');
     }

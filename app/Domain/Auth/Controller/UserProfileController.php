@@ -2,8 +2,12 @@
 
 namespace App\Domain\Auth\Controller;
 
+use App\Application\Abstracts\AuthAbstract;
 use App\Application\Http\Controllers\Controller;
+use App\Domain\Auth\DTO\UserDTO;
+use App\Domain\Auth\Interface\UserBusinessInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
@@ -12,6 +16,12 @@ use Spatie\RouteAttributes\Attributes\Post;
 #[Middleware('auth')]
 class UserProfileController extends Controller
 {
+    public function __construct(
+        private readonly UserBusinessInterface $userBusiness
+    )
+    {
+    }
+
     #[Get('/profile',name: 'profile')]
     public function show()
     {
@@ -33,17 +43,9 @@ class UserProfileController extends Controller
             'about' => ['max:255']
         ]);
 
-        auth()->user()->update([
-            'username' => $request->get('username'),
-            'firstname' => $request->get('firstname'),
-            'lastname' => $request->get('lastname'),
-            'email' => $request->get('email') ,
-            'address' => $request->get('address'),
-            'city' => $request->get('city'),
-            'country' => $request->get('country'),
-            'postal' => $request->get('postal'),
-            'about' => $request->get('about')
-        ]);
+        $user = new UserDTO($attributes);
+        $user->id = AuthAbstract::user()->id;
+        $this->userBusiness->updateUserWithoutPassword($user);
         return back()->with('succes', 'Profile succesfully updated');
     }
 }

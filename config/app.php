@@ -185,6 +185,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \App\Domain\Auth\Provider\AuthServiceProvider::class,
 
         /*
          * Application Service Providers...
